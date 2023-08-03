@@ -25,7 +25,39 @@ let getCheesees = async (req, res)=>{
     return res.status(200).json({total, cheese});
 }
 
-let postCheese = async(req, res)=>{
-    let {name, descripcion, precio } = req.body
-    let cheese = new Cheese({name, descripcion, precio })
+let postCheese = async (req, res) => {
+    let {name, state, price, categoria, descripcion, avalaible} = req.body;
+
+    let data = { name, state, usuario: req.usuario._id, price, categoria, descripcion, avalaible}
+    let cheese = new Cheese(data);
+    await cheese.save();
+    res.json({
+        "message":"Agregado correctamente",
+        cheese
+    })
 }
+
+let deleteCheese = async (req, res) => {
+    let {id} = req.params;
+    let cheese = await Cheese.findByIdAndUpdate(id, {state: false});
+    res.json(cheese)
+}
+
+let putCheese = async (req, res) => {
+    let {id} = req.params;
+    let {_id,
+         __v, 
+         ...resto} = req.body;
+    let cheese = await Cheese.findByIdAndUpdate(id, resto,{new:true});
+    res.json({
+        msg: "Actualizacion completada",
+        cheese
+    })
+};
+
+module.exports = {
+    getCheese,
+    getCheesees,
+    postCheese,
+    deleteCheese,
+    putCheese}

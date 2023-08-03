@@ -33,6 +33,7 @@ router.delete('/:id',[
       validateDocuments
 ], deleteCategoria)
 router.put('/:id', [
+      validateJWT,
       check('id', 'No es un ObjectID MongoDB válido').isMongoId(),
       check('id').custom( categoriaExistsById ),
       validateDocuments

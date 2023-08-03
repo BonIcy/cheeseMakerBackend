@@ -1,37 +1,39 @@
-let {Schema, model} = require('mongoose');
+let { Schema, model } = require('mongoose');
 
-let CheeseSchema= Schema({
+let CheeseSchema = Schema({
     name: {
         type: String,
-        required: true,
+        required: [true, 'El nombre es obligatorio'],
         unique: true
     },
-    status:{
+    state: {
         type: Boolean,
-        default: true
-    },
-    user:{
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+        default: true,
         required: true
     },
-    categoria:{
+    usuario: {
         type: Schema.Types.ObjectId,
-        ref: 'Categoria',
+        ref: 'Usuario',
         required: true
     },
-    precio:{
+    price: {
         type: Number,
         required: true
     },
-    descripcion:{
+    categoria: {
+        type: Schema.Types.ObjectId,
+        required: true
+    },
+    descripcion: {
         type: String,
         required: true
     },
-    avaible:{
-        type:Boolean,
+    avalaible: {
+        type: Boolean,
         default: true
     }
-})
+});
 
-module.exports = model('Cheese', CheeseSchema);
+
+
+module.exports = model( 'Cheese', CheeseSchema );

@@ -55,5 +55,6 @@ module.exports = {
     emailExiste,
     //15. exporto validador perzonalizado userExistsById - (findById)
     userExistsById,
+    cheeseExistsById,
     categoriaExistsById
 }
